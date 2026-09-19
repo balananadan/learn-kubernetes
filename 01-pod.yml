@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug
+spec:
+  containers:
+    - name: debug
+      image: rkalluru/debug
+#      ports:
+#        - containerPort: 80
