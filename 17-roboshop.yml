@@ -1,0 +1,377 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboshop-frontend
+  labels:
+    app: roboshop-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roboshop-frontend
+  template:
+    metadata:
+      labels:
+        app: roboshop-frontend
+    spec:
+      containers:
+        - name: roboshop-frontend
+          image: baladevops10.azurecr.io/roboshop-frontend
+      imagePullSecrets:
+        - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roboshop-frontend
+spec:
+  selector:
+    app: roboshop-frontend
+  ports:
+    - protocol: TCP
+      port: 80 # Service Port
+      targetPort: 80 # Container Port
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboshop-cart
+  labels:
+    app: roboshop-cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roboshop-cart
+  template:
+    metadata:
+      labels:
+        app: roboshop-cart
+    spec:
+      containers:
+        - name: roboshop-cart
+          image: baladevops10.azurecr.io/roboshop-cart
+          envFrom:
+            - configMapRef:
+                name: roboshop-cart
+      imagePullSecrets:
+        - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roboshop-cart
+spec:
+  selector:
+    app: roboshop-cart
+  ports:
+    - protocol: TCP
+      port: 8003 # Service Port
+      targetPort: 8003 # Container Port
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboshop-catalogue
+  labels:
+    app: roboshop-catalogue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roboshop-catalogue
+  template:
+    metadata:
+      labels:
+        app: roboshop-catalogue
+    spec:
+      containers:
+        - name: roboshop-catalogue
+          image: baladevops10.azurecr.io/roboshop-catalogue
+          envFrom:
+            - configMapRef:
+                name: roboshop-catalogue
+      imagePullSecrets:
+        - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roboshop-catalogue
+spec:
+  selector:
+    app: roboshop-catalogue
+  ports:
+    - protocol: TCP
+      port: 8002 # Service Port
+      targetPort: 8002 # Container Port
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboshop-orders
+  labels:
+    app: roboshop-orders
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roboshop-orders
+  template:
+    metadata:
+      labels:
+        app: roboshop-orders
+    spec:
+      containers:
+        - name: roboshop-orders
+          image: baladevops10.azurecr.io/roboshop-orders
+          envFrom:
+            - configMapRef:
+                name: roboshop-orders
+      imagePullSecrets:
+        - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roboshop-orders
+spec:
+  selector:
+    app: roboshop-orders
+  ports:
+    - protocol: TCP
+      port: 8007 # Service Port
+      targetPort: 8007 # Container Port
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboshop-payment
+  labels:
+    app: roboshop-payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roboshop-payment
+  template:
+    metadata:
+      labels:
+        app: roboshop-payment
+    spec:
+      containers:
+        - name: roboshop-payment
+          image: baladevops10.azurecr.io/roboshop-payment
+          envFrom:
+            - configMapRef:
+                name: roboshop-payment
+      imagePullSecrets:
+        - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roboshop-payment
+spec:
+  selector:
+    app: roboshop-payment
+  ports:
+    - protocol: TCP
+      port: 8005 # Service Port
+      targetPort: 8005 # Container Port
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboshop-ratings
+  labels:
+    app: roboshop-ratings
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roboshop-ratings
+  template:
+    metadata:
+      labels:
+        app: roboshop-ratings
+    spec:
+      containers:
+        - name: roboshop-ratings
+          image: baladevops10.azurecr.io/roboshop-ratings
+          envFrom:
+            - configMapRef:
+                name: roboshop-ratings
+      imagePullSecrets:
+        - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roboshop-ratings
+spec:
+  selector:
+    app: roboshop-ratings
+  ports:
+    - protocol: TCP
+      port: 8006 # Service Port
+      targetPort: 8006 # Container Port
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboshop-shipping
+  labels:
+    app: roboshop-shipping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roboshop-shipping
+  template:
+    metadata:
+      labels:
+        app: roboshop-shipping
+    spec:
+      containers:
+        - name: roboshop-shipping
+          image: baladevops10.azurecr.io/roboshop-shipping
+          envFrom:
+            - configMapRef:
+                name: roboshop-shipping
+      imagePullSecrets:
+        - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roboshop-shipping
+spec:
+  selector:
+    app: roboshop-shipping
+  ports:
+    - protocol: TCP
+      port: 8004 # Service Port
+      targetPort: 8004 # Container Port
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: roboshop-user
+  labels:
+    app: roboshop-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roboshop-user
+  template:
+    metadata:
+      labels:
+        app: roboshop-user
+    spec:
+      containers:
+        - name: roboshop-user
+          image: baladevops10.azurecr.io/roboshop-user
+          envFrom:
+            - configMapRef:
+                name: roboshop-user
+      imagePullSecrets:
+        - name: acr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: roboshop-user
+spec:
+  selector:
+    app: roboshop-user
+  ports:
+    - protocol: TCP
+      port: 8001 # Service Port
+      targetPort: 8001 # Container Port
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roboshop-cart
+data:
+  REDIS_HOST : redis-dev.piple.site
+  CATALOGUE_URL : http://roboshop-catalogue:8002
+  PORT : "8003"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roboshop-catalogue
+data:
+  MYSQL_HOST : mysql-dev.piple.site
+  MYSQL_USER : catalogue
+  MYSQL_PASSWORD : RoboShop@1
+  MYSQL_DATABASE : catalogue
+  PORT : "8002"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roboshop-user
+data:
+  MONGO_URL : mongodb://mongodb-dev.piple.site:27017/users
+  JWT_SECRET : roboshop-secret-key
+  PORT : "8001"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roboshop-shipping
+data:
+  DB_HOST : mysql-dev.piple.site
+  DB_USER : shipping
+  DB_PASS : RoboShop@1
+  PORT : "8004"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roboshop-payment
+data:
+  AMQP_HOST : rabbitmq-dev.piple.site
+  AMQP_USER : roboshop
+  AMQP_PASS : RoboShop@1
+  CART_URL : http://roboshop-cart:8003
+  USER_URL : http://roboshop-user:8001
+  PORT : "8005"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roboshop-orders
+data:
+  MONGO_URL : mongodb://mongodb-dev.piple.site:27017/orders
+  AMQP_HOST : rabbitmq-dev.piple.site
+  AMQP_USER : roboshop
+  AMQP_PASS : RoboShop@1
+  SHIPPING_URL : http://roboshop-shipping:8004
+  NOTIFICATION_URL : http://localhost:8008
+  PORT : "8007"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: roboshop-ratings
+data:
+  MYSQL_HOST : mysql-dev.piple.site
+  MYSQL_USER : ratings
+  MYSQL_PASSWORD : RoboShop@1
+  MYSQL_DATABASE : ratings
+  PORT : "8006"
+
+
+## 1. Standalone k8s, How to access my frontend ?
+## 2. Code Duplication.
+
