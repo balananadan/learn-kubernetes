@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ephmeral-container-example
+spec:
+  containers:
+    - name: sample
+      image: docker.io/rkalluru/ephmeral-practice
+
+# Command to add ephemeral container.
+# kubectl debug -it --attach=true -c debug --image=redhat/ubi10 ephmeral-container-example

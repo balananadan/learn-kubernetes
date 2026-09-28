@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-demo
+data:
+  player_initial_lives: "3"
+  score: "5000"
+  name: "John"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo1
+spec:
+  containers:
+    - name: demo
+      image: rkalluru/learnk8s:rhel9-bare
+      env:
+        - name: player_initial_lives
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo
+              key: player_initial_lives
+        - name: score
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo
+              key: score
+        - name: name
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo
+              key: name
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo2
+spec:
+  containers:
+    - name: demo
+      image: rkalluru/learnk8s:rhel9-bare
+      envFrom:
+        - configMapRef:
+            name: game-demo
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-demo-1
+data:
+  config: |
+    player_initial_lives="3"
+    score="5000"
+    name="John"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo4
+spec:
+  containers:
+    - name: demo
+      image: rkalluru/learnk8s:rhel9-bare
+      volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+  volumes:
+    - name: config
+      configMap:
+        name: game-demo-1

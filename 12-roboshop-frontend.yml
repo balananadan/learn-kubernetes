@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: roboshop-frontend-env-demo
+spec:
+  containers:
+    - name: frontend
+      image: public.ecr.aws/w8x4g9h7/roboshop-v3/frontend
+      env:
+        - name: CATALOGUE_HOST
+          value: localhost
+        - name: CATALOGUE_PORT
+          value: "8080"
+        - name: USER_HOST
+          value: localhost
+        - name: USER_PORT
+          value: "8080"
+        - name: CART_HOST
+          value: localhost
+        - name: CART_PORT
+          value: "8080"
+        - name: SHIPPING_HOST
+          value: localhost
+        - name: SHIPPING_PORT
+          value: "8080"
+        - name: PAYMENT_HOST
+          value: localhost
+        - name: PAYMENT_PORT
+          value: "8080"
+
+
