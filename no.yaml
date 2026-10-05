@@ -5,7 +5,7 @@ metadata:
   labels:
     app: web-server
     environment: production
-    annotations:
+  annotations:
       description: This the pod runs the web server
 spec:
   containers:
